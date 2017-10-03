@@ -1,0 +1,29 @@
+dist: trusty
+sudo: false
+language: python
+python:
+- '3.5'
+jdk:
+- oraclejdk8
+addons:
+  sonarqube:
+    organization: asleao-github
+    token:
+      secure: "$SONAR_TOKEN"
+branches:
+  only:
+  - master
+install:
+- pip install -r requirements.txt
+script:
+- cd src/
+- python3 manage.py behave
+- cd ..
+- sonar-scanner -Dsonar.login=$SONAR_TOKEN
+deploy:
+  provider: heroku
+  api_key:
+    secure: Xv/H2nz0qNSruOOUEkgqZG+8vd2yk3Age88cmmuLZV+zLFXu9lKp4/cBmAeDaU+O74C40nW/6Cj0XP2CQRPY6ISbna4JyPHfI/uhjPlW+q/06lEwwl11I8Tbf7lKkMWknH+AhvexkeWRbFhQT/0Iab+e8mAK4psCUFnZaAQoCmZPghkpbk9Z7PzRNdo/1tY57+gvVaFL8QhyCVq/nxP1I1IWKZ/3LDMwN6CRewg7tFaV43r5lEEf1vl3VfUAzHUkT+fGrN0ZV2WLxvTCblRSxr6GyfGT5EevHsQhgTpO/FBu/ZLG4SK0pr8fRNwPGosF/nc6ynwJBAZrMy4it9Ih7iPEjKKg3LjKsjwrHv+ieZ8xdC92xQ2i0b2zbWGvbsDP8DMTJemFLsZKJnln53K41c/K3y6TRD8mDqDVn058fXbnJ+QqcW5+4Uv5iM3LpAl+iqLHdIoj+hWoCigscdD/2VDuL34u2mZ4xbVfoidO87o67xIpP/SB9986KACyOj7HYYyZU94AfzmV/rn9ajvWX7PzUlvQF74H7DBaJaabvhqzVLWyGvUoZ3mIW+FGrkEzbnUu4shFmpTMvI83cldxV7jhIUYUFbx3SHMhSZA7z03emZx91FIa9ZYGsKXpsxEOf0mU5h3DUIWFRmvUOEAEOCCnjQ3j9hqqoJMWF0Olspk=
+  app: ledszeppelin
+  on:
+    repo: asleao/leds-zeppelin
