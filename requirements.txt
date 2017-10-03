@@ -1,0 +1,16 @@
+behave==1.2.5
+behave-django==0.5.0
+dj-database-url==0.4.2
+Django==1.11.5
+factory-boy==2.9.2
+Faker==0.8.4
+gunicorn==19.7.1
+parse==1.8.2
+parse-type==0.4.2
+pkg-resources==0.0.0
+psycopg2==2.7.3.1
+python-dateutil==2.6.1
+pytz==2017.2
+selenium==3.6.0
+six==1.11.0
+whitenoise==3.3.1
