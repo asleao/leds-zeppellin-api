@@ -133,6 +133,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+ADMIN_SITE_HEADER = "LedsZeppellin"
 
-ADMIN_SITE_HEADER = "LedsZeppellin Admin"
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
