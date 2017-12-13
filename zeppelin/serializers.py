@@ -7,13 +7,14 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.UserProfile
-        fields = ('id', 'email', 'name', 'matricula', 'password')
+        fields = ('id', 'username', 'email', 'name', 'matricula', 'password')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         """Create and return a new user."""
 
         user = models.UserProfile(
+            username=validated_data['username'],
             email=validated_data['email'],
             name=validated_data['name'],
             matricula=validated_data['matricula']

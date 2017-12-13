@@ -7,23 +7,22 @@ from django.contrib.auth.models import BaseUserManager
 class UserProfileManager(BaseUserManager):
     """ Helps Django work with our custom user model."""
 
-    def create_user(self, email, name, matricula, password=None):
+    def create_user(self, username, email, name, matricula, password=None):
         """ Creates a new user profile object."""
-        if not email:
-            raise ValueError('O campo de email deve ser preenchido.')
+        if not username:
+            raise ValueError('O campo de username deve ser preenchido.')
 
         email = self.normalize_email(email)  # Put all caracters to lower case.
-        matricula = self.normalize_email(matricula)
-        user = self.model(email=email, name=name, matricula=matricula)  # Create object
+        user = self.model(username=username, email=email, name=name, matricula=matricula)  # Create object
         user.set_password(password)  # Encrypt password to a Hash.
         user.save(using=self._db)
 
         return user
 
-    def create_superuser(self, email, name, matricula, password):
+    def create_superuser(self, username, email, name, matricula, password):
         """Creates and saves a new superuser with given details."""
 
-        user = self.create_user(email, name, matricula, password)
+        user = self.create_user(username, email, name, matricula, password)
         user.is_superuser = True
         user.is_staff = True
 
@@ -34,7 +33,7 @@ class UserProfileManager(BaseUserManager):
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     """Represents a user profile inside the system."""
-
+    username = models.CharField(max_length=255, unique=True)
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     matricula = models.CharField(max_length=255)
@@ -43,8 +42,13 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
     objects = UserProfileManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['name', 'email', 'matricula']
+
+    def get_username(self):
+        """Used to get a users username."""
+
+        return self.username
 
     def get_full_name(self):
         """Used to get a users full name."""
