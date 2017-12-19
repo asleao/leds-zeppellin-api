@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -85,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('PG_DATABASE'),
         'USER': os.environ.get('PG_USER'),
-        'PASSWORD':os.environ.get('PG_PASS'),
+        'PASSWORD': os.environ.get('PG_PASS'),
         'HOST': 'localhost',
         'PORT': os.environ.get('PG_PORT'),
     }
@@ -140,6 +141,7 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 AUTH_USER_MODEL = 'zeppelin.UserProfile'
 
+LOGIN_URL = '/api/login/'
 LOGIN_REDIRECT_URL = '/'
 
 
@@ -163,3 +165,16 @@ SOCIAL_AUTH_GITHUB_SCOPE = [
     'admin:org',
     'user:email'
 ]
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
