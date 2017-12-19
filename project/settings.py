@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'gunicorn',
     'rest_framework',
     'rest_framework.authtoken',
-    'django.contrib.sites',
     'oauth2_provider',
     'social_django',
     'rest_framework_social_oauth2',
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
 AUTHENTICATION_BACKENDS = (
     'rest_framework_social_oauth2.backends.DjangoOAuth2',
     'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.github.GithubOAuth2',
 )
 
 
@@ -83,10 +83,11 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
+        'NAME': os.environ.get('PG_DATABASE'),
+        'USER': os.environ.get('PG_USER'),
+        'PASSWORD':os.environ.get('PG_PASS'),
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': os.environ.get('PG_PORT'),
     }
 }
 
@@ -148,5 +149,17 @@ REST_FRAMEWORK = {
         'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
 }
-# Django social auth config
-SITE_ID = 1
+
+SOCIAL_AUTH_GITHUB_KEY = os.environ.get('GITHUB_CLIENT')
+SOCIAL_AUTH_GITHUB_SECRET = os.environ.get('GITHUB_SECRET')
+SOCIAL_AUTH_USER_MODEL = 'zeppelin.UserProfile'
+
+
+SOCIAL_AUTH_GITHUB_SCOPE = [
+    'user',
+    'read:org',
+    'public_repo',
+    'admin:repo_hook',
+    'admin:org',
+    'user:email'
+]
