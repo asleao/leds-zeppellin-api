@@ -31,9 +31,17 @@ INSTALLED_APPS = [
     'gunicorn',
     'rest_framework',
     'rest_framework.authtoken',
+    'django.contrib.sites',
+    # social-oath2
     'oauth2_provider',
     'social_django',
     'rest_framework_social_oauth2',
+    # # django-rest-auth
+    'rest_auth',
+    # # django-rest-auth - registration
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
 ]
 
 
@@ -41,6 +49,7 @@ AUTHENTICATION_BACKENDS = (
     'rest_framework_social_oauth2.backends.DjangoOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'social_core.backends.github.GithubOAuth2',
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
 
@@ -94,6 +103,7 @@ DATABASES = {
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -139,22 +149,23 @@ STATICFILES_DIRS = (
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-AUTH_USER_MODEL = 'zeppelin.UserProfile'
 
-LOGIN_URL = '/api/login/'
 LOGIN_REDIRECT_URL = '/'
 
 
 REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
 }
 
+# Django Social Auth Config
+
 SOCIAL_AUTH_GITHUB_KEY = os.environ.get('GITHUB_CLIENT')
 SOCIAL_AUTH_GITHUB_SECRET = os.environ.get('GITHUB_SECRET')
-SOCIAL_AUTH_USER_MODEL = 'zeppelin.UserProfile'
 
 
 SOCIAL_AUTH_GITHUB_SCOPE = [
@@ -178,3 +189,16 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
 )
+
+
+# django-rest-auth - registration config
+
+SITE_ID = 1
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
