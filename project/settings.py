@@ -14,7 +14,7 @@ SECRET_KEY = '*+435sj+6+e3ukdqw%392#bs7co7oy^b$x$xkbcsn#@^*azox2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'ledszeppelin.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'ledszeppelin.herokuapp.com']
 
 
 # Application definition
