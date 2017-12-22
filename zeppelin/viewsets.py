@@ -24,3 +24,11 @@ class LanguageViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.LanguageSerializer
     queryset = models.Language.objects.all()
     authentication_classes = (TokenAuthentication,)
+
+
+class ProjectViewSet(viewsets.ModelViewSet):
+    """Handle creating, reading and updating Project"""
+
+    serializer_class = serializers.ProjectSerializer
+    queryset = models.Project.objects.all()
+    authentication_classes = (TokenAuthentication,)

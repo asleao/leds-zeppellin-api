@@ -14,8 +14,8 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """Create and return a new user."""
 
-        user = models.UserProfile(
-            username=validated_data['name'],
+        user = User.objects.create(
+            username=validated_data['username'],
             email=validated_data['email']
         )
 
@@ -44,8 +44,16 @@ class LanguageSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.ModelSerializer):
     """A serializer for our Project objects."""
 
-    tools = ToolSerializer(many=True)
-    team = UserSerializer(many=True)
+    tools = serializers.SlugRelatedField(
+        many=True,
+        queryset=models.Tool.objects.all(),
+        slug_field='name'
+    )
+    team = serializers.SlugRelatedField(
+        many=True,
+        queryset=User.objects.all(),
+        slug_field='username'
+    )
 
     class Meta:
         model = models.Project
