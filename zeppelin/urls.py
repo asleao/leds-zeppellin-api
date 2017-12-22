@@ -6,6 +6,7 @@ from . import viewsets
 
 router = DefaultRouter()
 router.register('tool', viewsets.ToolViewSet)
+router.register('language', viewsets.LanguageViewSet)
 
 
 urlpatterns = [

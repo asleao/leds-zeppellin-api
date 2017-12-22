@@ -16,3 +16,11 @@ class ToolViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ToolSerializer
     queryset = models.Tool.objects.all()
     authentication_classes = (TokenAuthentication,)
+
+
+class LanguageViewSet(viewsets.ModelViewSet):
+    """Handle creating, reading and updating Language"""
+
+    serializer_class = serializers.LanguageSerializer
+    queryset = models.Language.objects.all()
+    authentication_classes = (TokenAuthentication,)
