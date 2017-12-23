@@ -5,9 +5,9 @@ from rest_framework.routers import DefaultRouter
 from . import viewsets
 
 router = DefaultRouter()
-router.register('tool', viewsets.ToolViewSet)
-router.register('language', viewsets.LanguageViewSet)
-router.register('project', viewsets.ProjectViewSet)
+router.register('tools', viewsets.ToolViewSet)
+router.register('languages', viewsets.LanguageViewSet)
+router.register('projects', viewsets.ProjectViewSet)
 
 
 urlpatterns = [
