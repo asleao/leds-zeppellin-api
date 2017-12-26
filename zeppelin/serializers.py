@@ -21,6 +21,11 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("A User with this username already exists")
         return User.objects.create(**validated_data)
 
+    def update(self, instance, validated_data):
+        instance.name = self.validated_data['username'] or instance.name
+        instance.save()
+        return instance
+
 
 class ToolSerializer(serializers.ModelSerializer):
     """A serializer for our Tool objects."""
@@ -39,6 +44,11 @@ class ToolSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("A Tool with this name already exists")
         return models.Tool.objects.create(**validated_data)
 
+    def update(self, instance, validated_data):
+        instance.name = self.validated_data['name'] or instance.name
+        instance.save()
+        return instance
+
 
 class LanguageSerializer(serializers.ModelSerializer):
     """A serializer for our Language objects."""
@@ -56,6 +66,11 @@ class LanguageSerializer(serializers.ModelSerializer):
         if models.Language.objects.filter(name=self.validated_data['name']).exists():
             raise serializers.ValidationError("A Language with this name already exists")
         return models.Language.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.name = self.validated_data['name'] or instance.name
+        instance.save()
+        return instance
 
 
 class ProjectSerializer(serializers.ModelSerializer):
