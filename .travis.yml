@@ -6,13 +6,15 @@ python:
 jdk:
 - oraclejdk8
 addons:
-  sonarqube:
+  sonarcloud:
     organization: asleao-github
     token:
       secure: "$SONAR_TOKEN"
-branches:
-  only:
-  - master
+    github_token:
+      secure: "$GITHUB_TOKEN"
+    branches:
+      - master
+      - develop
 install:
 - pip install -r requirements.txt
 script:
@@ -21,6 +23,6 @@ deploy:
   provider: heroku
   api_key:
     secure: kXIJymFtj3tvg7FQlmAelv+FZ4cuSPGa0UH1Y6hmbCOtM7jRwHWbx5z4bILDQeexKL4FI5QJDtjHWFHRJ0zpElr5ZePt8Xk88dTy/Yp8njA/1OHAYfQ7s4aj44t+rzB5kX4m8vmOAttBRyShd3GBlVoki28x8aHNr6rb5x2Zo4MhkVgJF8AM0M1XDuCJjWe0OCADeNUKhwrp8+EwdSdMLUs42J7dKE134JE/LNhTjA4jkyJwtFuN3+ZdKulhCB68WUL9xyDkV0ZrC6/kssm3HSFfsRHZaTGd39ujHftHoTPw3G7dqgYYAvw3nxwC96wrkU6IQ2DEIet5ILsRPgsIyTDxMlj9Y98gMmdxIH3+2hxYCJ3Fju466Yj2yVyvt9JWrtDBV6cnFri0tlNrbPZfot/viF492kuaN4ClxQHgQTT7CVGRqGwbbqrLyRcvrGiQw2Szur+Ix0tl0XWPSws6ySaxxtSlRAkbUlJcaLpaG69lLLhDEC2tdaP4Z/hr67N26ueCrXi0oMqtuTBSevBrOvpGdu2rmZI1icOGAEATRUwU5Owvk8Yxw/ItTiUkd5bKIxYp19VQ+Ubd4OrSLhofe3OI5KAbwOXT5X8QOFe3GLpIMaUsusj09nYvIBjrjWeKpxOq9amnldHvcMGxtft4KkmklzudaJNfhrxyEo/Bpg8=
-  app: ledszeppelin
+  app: leds-zeppellin-api
   on:
-    repo: asleao/leds-zeppelin
+    repo: asleao/leds-zeppellin-api
