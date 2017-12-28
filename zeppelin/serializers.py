@@ -108,3 +108,25 @@ class ProjectSerializer(serializers.ModelSerializer):
         project.save()
 
         return project
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
+
+        instance.tools.clear()
+        for tool in validated_data.get('tools', instance.tools):
+            tool = models.Tool.objects.get(name=tool['name'])
+            instance.tools.add(tool.id)
+
+        instance.team.clear()
+        for team in validated_data.get('team', instance.team):
+            team = User.objects.get(username=team['username'])
+            instance.team.add(team.id)
+
+        owner_data = validated_data.pop('owner')
+        language_data = validated_data.pop('language')
+
+        instance.owner = User.objects.get(username=owner_data['username'])
+
+        instance.language = models.Language.objects.get(name=language_data['name'])
+
+        return instance
