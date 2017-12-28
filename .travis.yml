@@ -27,5 +27,5 @@ deploy:
   on:
     repo: asleao/leds-zeppellin-api
     branch: 
-        develop:staging
-        master:production
+        develop:leds-zeppellin-api-dev
+        master:leds-zeppellin-api
