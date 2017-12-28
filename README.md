@@ -1,4 +1,4 @@
-# leds-zeppelin [![Build Status](https://travis-ci.org/asleao/leds-zeppelin.svg?branch=master)](https://travis-ci.org/asleao/leds-zeppelin)
+# leds-zeppelin [![Build Status](https://travis-ci.org/asleao/leds-zeppellin-api.svg?branch=feature%2FLZ-MODELS)](https://travis-ci.org/asleao/leds-zeppellin-api)
 
 Repositório para o desenvolvimento do sistema LedsZeppelin.
 
