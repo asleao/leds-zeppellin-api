@@ -13,8 +13,8 @@ addons:
     github_token:
       secure: "$GITHUB_TOKEN"
     branches:
-      - master
-      - develop
+    - master
+    - develop
 install:
 - pip install -r requirements.txt
 script:
@@ -22,7 +22,10 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: kXIJymFtj3tvg7FQlmAelv+FZ4cuSPGa0UH1Y6hmbCOtM7jRwHWbx5z4bILDQeexKL4FI5QJDtjHWFHRJ0zpElr5ZePt8Xk88dTy/Yp8njA/1OHAYfQ7s4aj44t+rzB5kX4m8vmOAttBRyShd3GBlVoki28x8aHNr6rb5x2Zo4MhkVgJF8AM0M1XDuCJjWe0OCADeNUKhwrp8+EwdSdMLUs42J7dKE134JE/LNhTjA4jkyJwtFuN3+ZdKulhCB68WUL9xyDkV0ZrC6/kssm3HSFfsRHZaTGd39ujHftHoTPw3G7dqgYYAvw3nxwC96wrkU6IQ2DEIet5ILsRPgsIyTDxMlj9Y98gMmdxIH3+2hxYCJ3Fju466Yj2yVyvt9JWrtDBV6cnFri0tlNrbPZfot/viF492kuaN4ClxQHgQTT7CVGRqGwbbqrLyRcvrGiQw2Szur+Ix0tl0XWPSws6ySaxxtSlRAkbUlJcaLpaG69lLLhDEC2tdaP4Z/hr67N26ueCrXi0oMqtuTBSevBrOvpGdu2rmZI1icOGAEATRUwU5Owvk8Yxw/ItTiUkd5bKIxYp19VQ+Ubd4OrSLhofe3OI5KAbwOXT5X8QOFe3GLpIMaUsusj09nYvIBjrjWeKpxOq9amnldHvcMGxtft4KkmklzudaJNfhrxyEo/Bpg8=
+    secure: gtZ1GiTgB4MQi69Swm0adFMmE/yev8bhp4PtqwdMbLe0qLjQDLjhA0QXdgVY0Gn5tZl2Qr2vWWr0gvRuwwvHsdr/MKzGN7y1dkxUhM6U3D6Kk8oEVEJLdjj+oS8SJdTzEm0bZ7UU2dSmMr/qUojU9K21f6ojfOV86Tv+tH8HoPJSTo51we6UjcEeknmbfQ9ATieLLPkD5mm9r+31/zoxyVEVvEVcShrYw85ce43LqJC0Ew+AUyEiPiPbTeIEFfFMvHYCCQW2z2HgKlFQCu543T0UJl2QctX9smAgH4tSruxx3EeffCW8TmW6eGEQPC+oSWdlxkxpbQT9FroCfI2+gNKg1fA2AX9XUxWeOlzXhDlkOxTmujjd4kxcr7yn3ygnGLKsncbdLH6MoneSniKocTnPXDSznRsdIrb1SiESGOERXNw1RMrm86hBOdfUluCSMDdk/dWoNs2Plm6tiIpQvgbqqpykZOJcA3uVzryGJEDCC56DqMcPLn2qMpViM65RCarrHYXdzxqf8PGPhd5zujxnHR6Hwmrp3shQ4Yqapyq1zjxXmog+A16ahohYmDyafcU/Hobx/j1KTF+jXf0Rpx1TG+DYpN48MzIFYTrCUIo4Zj7YP/c1TExxPQIocScfF9OR6q+Yu/cDPRt/C71Xx8GDvYvN52Ng39WUawoRCVA=
   app: leds-zeppellin-api
   on:
     repo: asleao/leds-zeppellin-api
+    branch: 
+        develop:staging
+        master:production
