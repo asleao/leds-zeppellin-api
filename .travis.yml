@@ -20,7 +20,7 @@ install:
 script:
 - sonar-scanner -Dsonar.login=$SONAR_TOKEN
 deploy:
-  - provider: heroku
+  provider: heroku
   api_key:
     secure: kwDle4kGQb0xSm2ILc0ZMS/n37prsyy6zvYey+WBmIV598ajg1yeNwxJ6Tfo/gMVSA+/CVFGm4pS14gHzHWTmh+Tl07srlDi6Zs2L1HRX9DdyhGj8bH2cxhcSbfxbTxFu7wIZrU17cSryJyw9wFAhGiAuq/poeajqINlAm7D9iLmLWcNDjUfTxWMWQbhZZZn/ArdK88KMPv9OFDxil/3HTu8+MLqwmARkjTSpX/DCKkbLlKsWGfRgP7Wsi21gNF7Fem0NT0Y500McpSdB0zCHybSNtoxlv5ouvxcyRp8A7R1Ia1SfTNCvej2dwiXgEtVVIJ0P+FhR4nS8RkJOD3lXtENarRTk1oGjPEV5zvjpOglpMxS6y4E8zj11EAw0wNkLQodtggLVT4gl2bNW/ZbOdxXHoOBM1QVpOhvFkhSs9z0/focO2ENG+UeOjxqKRmAG58TGu8EL2MaQ4Vzp2B7qpds4Zty+vXL2fCKbajVme9UZCVvitApmhSZ7XNr23P3Hm9fdservkEvld8wddYE3kBzSwD8RJF3TglrE13+Ql9bcnlRGjHbOvMHV0AN9zWcZvNNEso8aT5lF7itX8XF9aGQCNLUCNkw0GAhaNBvrGBfR9Jal9nzKL6LeViiLTCVo142uPRqn/NsikeduO4fOCPNZMTh4x7PlbdmTs7cyE0=
   app: leds-zeppellin-api-dev
@@ -28,7 +28,7 @@ deploy:
     repo: asleao/leds-zeppellin-api
     branch: develop
 
-  - provider: heroku
+  provider: heroku
   api_key:
     secure: kwDle4kGQb0xSm2ILc0ZMS/n37prsyy6zvYey+WBmIV598ajg1yeNwxJ6Tfo/gMVSA+/CVFGm4pS14gHzHWTmh+Tl07srlDi6Zs2L1HRX9DdyhGj8bH2cxhcSbfxbTxFu7wIZrU17cSryJyw9wFAhGiAuq/poeajqINlAm7D9iLmLWcNDjUfTxWMWQbhZZZn/ArdK88KMPv9OFDxil/3HTu8+MLqwmARkjTSpX/DCKkbLlKsWGfRgP7Wsi21gNF7Fem0NT0Y500McpSdB0zCHybSNtoxlv5ouvxcyRp8A7R1Ia1SfTNCvej2dwiXgEtVVIJ0P+FhR4nS8RkJOD3lXtENarRTk1oGjPEV5zvjpOglpMxS6y4E8zj11EAw0wNkLQodtggLVT4gl2bNW/ZbOdxXHoOBM1QVpOhvFkhSs9z0/focO2ENG+UeOjxqKRmAG58TGu8EL2MaQ4Vzp2B7qpds4Zty+vXL2fCKbajVme9UZCVvitApmhSZ7XNr23P3Hm9fdservkEvld8wddYE3kBzSwD8RJF3TglrE13+Ql9bcnlRGjHbOvMHV0AN9zWcZvNNEso8aT5lF7itX8XF9aGQCNLUCNkw0GAhaNBvrGBfR9Jal9nzKL6LeViiLTCVo142uPRqn/NsikeduO4fOCPNZMTh4x7PlbdmTs7cyE0=
   app: leds-zeppellin-api
