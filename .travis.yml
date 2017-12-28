@@ -27,5 +27,5 @@ deploy:
   on:
     repo: asleao/leds-zeppellin-api
     branch: 
-        develop:leds-zeppellin-api-dev
-        master:leds-zeppellin-api
+        develop
+        master
