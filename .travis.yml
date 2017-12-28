@@ -23,9 +23,7 @@ deploy:
   provider: heroku
   api_key:
     secure: gtZ1GiTgB4MQi69Swm0adFMmE/yev8bhp4PtqwdMbLe0qLjQDLjhA0QXdgVY0Gn5tZl2Qr2vWWr0gvRuwwvHsdr/MKzGN7y1dkxUhM6U3D6Kk8oEVEJLdjj+oS8SJdTzEm0bZ7UU2dSmMr/qUojU9K21f6ojfOV86Tv+tH8HoPJSTo51we6UjcEeknmbfQ9ATieLLPkD5mm9r+31/zoxyVEVvEVcShrYw85ce43LqJC0Ew+AUyEiPiPbTeIEFfFMvHYCCQW2z2HgKlFQCu543T0UJl2QctX9smAgH4tSruxx3EeffCW8TmW6eGEQPC+oSWdlxkxpbQT9FroCfI2+gNKg1fA2AX9XUxWeOlzXhDlkOxTmujjd4kxcr7yn3ygnGLKsncbdLH6MoneSniKocTnPXDSznRsdIrb1SiESGOERXNw1RMrm86hBOdfUluCSMDdk/dWoNs2Plm6tiIpQvgbqqpykZOJcA3uVzryGJEDCC56DqMcPLn2qMpViM65RCarrHYXdzxqf8PGPhd5zujxnHR6Hwmrp3shQ4Yqapyq1zjxXmog+A16ahohYmDyafcU/Hobx/j1KTF+jXf0Rpx1TG+DYpN48MzIFYTrCUIo4Zj7YP/c1TExxPQIocScfF9OR6q+Yu/cDPRt/C71Xx8GDvYvN52Ng39WUawoRCVA=
-  app: leds-zeppellin-api
-  on:
-    repo: asleao/leds-zeppellin-api
-    branch: 
-        develop
-        master
+  app:
+    master:leds-zeppellin-api
+    develop:leds-zeppellin-api-dev
+
