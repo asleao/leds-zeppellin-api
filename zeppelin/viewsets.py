@@ -1,6 +1,6 @@
 
 from rest_framework import viewsets
-from rest_framework.authentication import TokenAuthentication
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework import filters
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -17,7 +17,7 @@ class ToolViewSet(viewsets.ModelViewSet):
 
     serializer_class = serializers.ToolSerializer
     queryset = models.Tool.objects.all()
-    authentication_classes = (TokenAuthentication,)
+    authentication_classes = (JSONWebTokenAuthentication,)
 
 
 class LanguageViewSet(viewsets.ModelViewSet):
@@ -25,7 +25,7 @@ class LanguageViewSet(viewsets.ModelViewSet):
 
     serializer_class = serializers.LanguageSerializer
     queryset = models.Language.objects.all()
-    authentication_classes = (TokenAuthentication,)
+    authentication_classes = (JSONWebTokenAuthentication,)
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -33,7 +33,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
     serializer_class = serializers.ProjectSerializer
     queryset = models.Project.objects.all()
-    authentication_classes = (TokenAuthentication,)
+    authentication_classes = (JSONWebTokenAuthentication,)
 
     @detail_route()
     def team(self, request, pk=None):

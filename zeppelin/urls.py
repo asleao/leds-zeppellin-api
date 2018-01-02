@@ -11,5 +11,5 @@ router.register('projects', viewsets.ProjectViewSet)
 
 
 urlpatterns = [
-    url(r'', include(router.urls))
+    url(r'', include(router.urls)),
 ]
