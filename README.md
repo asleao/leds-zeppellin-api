@@ -1,5 +1,4 @@
 # leds-zeppelin [![Build Status](https://travis-ci.org/asleao/leds-zeppellin-api.svg?branch=feature%2FLZ-MODELS)](https://travis-ci.org/asleao/leds-zeppellin-api)
-[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=leds-zeppelin-api)](https://sonarcloud.io/dashboard/index/leds-zeppelin-api)
 
 Repositório para o desenvolvimento do sistema LedsZeppelin.
 
