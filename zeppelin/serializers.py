@@ -86,7 +86,7 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'tools', 'team', 'owner', 'language')
 
     def create(self, validated_data):
-
+        codeSmellTeste="teste"
         tool_data = validated_data.pop('tools')
         team_data = validated_data.pop('team')
         owner_data = validated_data.pop('owner')
