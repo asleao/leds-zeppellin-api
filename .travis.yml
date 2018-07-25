@@ -23,9 +23,7 @@ deploy:
   provider: heroku
   api_key:
     secure: gjqRpFlpjHF49cdtxNuHO01Cqr9eYBwehbZtZzYrmhKDplP7XMCqcbEiVEaLF14wp5dRF8RdLZJ+lkScjTL41E+6+QIbT2yLIGFrEzJFw80ej2tLujErON5aBXgozrsFQjXqzcWSOxCdRURPxtv3+hp4KXGGxqUwkKfpsejzwChjAPf1q5oP+dF6bSz4DabsSowxZPGSFRlkYGUUOUSjS5pipGZ6RBVO/bvh1rWWFkJmqC1rp4pvpmS8Zlbn2YKfKCcM6psUGYb1mbh8LzyTLeYuWRwBXA4ZJA8QfBhBBgJXIlYOJBlUWeUbQdGQioz1Zh2tkweKWeqtQuOh3I1BpjBMD0L7oItLUpWdDckSjJ0GmzFbUGx0CeWBQm6obKQ82YnpYR4nfaXFGTwniwDGTlUa9/GX8w6cZWRK6uwfFJGvw8mCTHp6OL8ERBIl3daAMJohzAC1TTcc1VjSLKtUU0FNV8AoI6+GrFOPeo6mgiRUORvBOfczuL9T5I94iIwbzwJ5X26XUo3KbDup0UIRFyBaTpwurUYHvhhUf9CXF0SD7ikSWdVyRLJSX+zzqhxwyDqZ/ZaitcY/dyCgjYPxJpesKncZzWt50uIYV0r520mH+5WucsJhnYeRWD6kge53t/SeEr4PVIiDFsAQ9tqxjwVFhXrSLwHjCCRX1fIDBag=
-  app: 
+  app:
     master: leds-zeppellin-api
     develop: leds-zeppellin-api-dev
-  on:
-    repo: asleao/leds-zeppellin-api
 
