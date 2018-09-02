@@ -1,7 +1,8 @@
-from rest_framework import serializers
 from django.contrib.auth.models import User
-from . import models
 from django.contrib.auth.validators import UnicodeUsernameValidator
+from rest_framework import serializers
+
+from .models import *
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -31,7 +32,7 @@ class ToolSerializer(serializers.ModelSerializer):
     """A serializer for our Tool objects."""
 
     class Meta:
-        model = models.Tool
+        model = Tool
         fields = ('id', 'name')
         extra_kwargs = {
             'name': {
@@ -40,9 +41,9 @@ class ToolSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        if models.Tool.objects.filter(name=self.validated_data['name']).exists():
+        if Tool.objects.filter(name=self.validated_data['name']).exists():
             raise serializers.ValidationError("A Tool with this name already exists")
-        return models.Tool.objects.create(**validated_data)
+        return Tool.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.name = self.validated_data['name'] or instance.name
@@ -54,7 +55,7 @@ class LanguageSerializer(serializers.ModelSerializer):
     """A serializer for our Language objects."""
 
     class Meta:
-        model = models.Language
+        model = Language
         fields = ('id', 'name')
         extra_kwargs = {
             'name': {
@@ -63,9 +64,9 @@ class LanguageSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        if models.Language.objects.filter(name=self.validated_data['name']).exists():
+        if Language.objects.filter(name=self.validated_data['name']).exists():
             raise serializers.ValidationError("A Language with this name already exists")
-        return models.Language.objects.create(**validated_data)
+        return Language.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.name = self.validated_data['name'] or instance.name
@@ -82,7 +83,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     language = LanguageSerializer()
 
     class Meta:
-        model = models.Project
+        model = Project
         fields = ('id', 'name', 'tools', 'team', 'owner', 'language')
 
     def create(self, validated_data):
@@ -93,12 +94,12 @@ class ProjectSerializer(serializers.ModelSerializer):
         language_data = validated_data.pop('language')
 
         owner = User.objects.get(username=owner_data['username'])
-        language = models.Language.objects.get(name=language_data['name'])
+        language = Language.objects.get(name=language_data['name'])
 
-        project = models.Project.objects.create(owner=owner, language=language, **validated_data)
+        project = Project.objects.create(owner=owner, language=language, **validated_data)
 
         for tool in tool_data:
-            tool = models.Tool.objects.get(name=tool['name'])
+            tool = Tool.objects.get(name=tool['name'])
             project.tools.add(tool.id)
 
         for team in team_data:
@@ -114,7 +115,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 
         instance.tools.clear()
         for tool in validated_data.get('tools', instance.tools):
-            tool = models.Tool.objects.get(name=tool['name'])
+            tool = Tool.objects.get(name=tool['name'])
             instance.tools.add(tool.id)
 
         instance.team.clear()
@@ -127,6 +128,6 @@ class ProjectSerializer(serializers.ModelSerializer):
 
         instance.owner = User.objects.get(username=owner_data['username'])
 
-        instance.language = models.Language.objects.get(name=language_data['name'])
+        instance.language = Language.objects.get(name=language_data['name'])
 
         return instance
