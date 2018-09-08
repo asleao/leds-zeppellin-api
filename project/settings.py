@@ -1,5 +1,6 @@
 import os
 import dj_database_url
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -155,6 +156,11 @@ REST_FRAMEWORK = {
 #  djangorestframework-jwt
 REST_USE_JWT = True
 
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=300),
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+}
 
 # django-rest-auth - registration config
 SITE_ID = 1

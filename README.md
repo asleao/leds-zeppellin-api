@@ -20,5 +20,4 @@ Para rodar o projeto digite o comando:
 
 ### Login
 
-O sistema utiliza authenticação com JWT, para realizar os testes, baixe o addon "Modheader", realize o login no endpoint "/login" e copie o token retornado. Em seguida abra o Modheader e adicione um request header com o nome "Authorization" e no valor coloque "JWT <token_copiado>". Dessa forma os endpoints do sistema que requerem autheticação poderam ser acessados.
-
+O sistema utiliza authenticação com JWT, para realizar os testes, baixe o addon "Modheader", realize o login no endpoint "/login" e copie o token retornado. Em seguida abra o Modheader e adicione um request header com o nome "Authorization" e no valor coloque "Bearer <token_copiado>". Dessa forma os endpoints do sistema que requerem autheticação poderam ser acessados.
