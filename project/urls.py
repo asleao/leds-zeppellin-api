@@ -6,5 +6,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include('zeppelin.urls')),    
     url(r'^api/v1/registration/', include('rest_auth.registration.urls')),
-    url(r'^api/v1/token/', obtain_jwt_token),
+    url(r'^api/v1/login/', obtain_jwt_token),
 ]
