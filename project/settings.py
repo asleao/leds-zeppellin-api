@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     # # django-rest-auth - registration
     'allauth',
     'allauth.account',
-    'rest_auth.registration',
+    'rest_auth.registration',    
 ]
 
 
