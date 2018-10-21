@@ -172,3 +172,11 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = os.environ.get('EMAIL_PORT')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+
+#CloudAMQ
+import pika,logging
+
+URL = os.environ.get('CLOUDAMQP_URL', 'amqp://svrmsfqx:9mjnnI4YSGHwJfTATgNBtQWXCpw9wido@crane.rmq.cloudamqp.com/svrmsfqx')
+PARAMS_AMQ = pika.URLParameters(URL)
+PARAMS_AMQ.socket_timeout = 5
+logging.basicConfig()
