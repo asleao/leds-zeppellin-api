@@ -12,14 +12,18 @@ def send_project_to_queue(sender, instance, **kwargs):
         Function responsible for sending a json with a project object to the queue.
     """
     # TODO: verificar uma maneira melhor de converter esse json.
-    data = {}
-    data['name'] = instance.name
-    data['tools'] = {}
-    data['tools'] = [tool.name for tool in instance.tools.all()]
-    data['team'] = {}
-    data['team'] = [team.username for team in instance.team.all()]
-    data['language'] = instance.language.name
+    
+    team = [team.username for team in instance.team.all()]
 
-    message = Message(queue="Github", exchange='',
-                      routing_key="Github", body=json.dumps(data))
-    message.send_message()
+    if(team):
+        data = {}
+        data['name'] = instance.name
+        data['tools'] = {}
+        data['tools'] = [tool.name for tool in instance.tools.all()]
+        data['team'] = {}
+        data['team'] = team
+        data['language'] = instance.language.name
+
+        message = Message(queue="Github", exchange='',
+                        routing_key="Github", body=json.dumps(data))
+        message.send_message()
