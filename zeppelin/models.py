@@ -24,3 +24,12 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
+
+# TODO: Criar o endpoint para passar usuario e senha e receber o token para cada ferramenta.
+class ToolCredential(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    tool = models.ForeignKey(Tool, on_delete=models.CASCADE)
+    token = models.CharField(max_length=150, blank=True, unique=True)
+
+    def __str__(self):
+        return self.tool.name
