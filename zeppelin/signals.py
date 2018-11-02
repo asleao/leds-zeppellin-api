@@ -1,4 +1,4 @@
-from .models import Project, Language, ToolCredential
+from .models import Project, Language, ToolCredential, Tool
 from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver
 from .message import *
@@ -6,28 +6,59 @@ import json
 from django.contrib.auth.models import User
 
 
-@receiver(m2m_changed, sender=Project.team.through)
+@receiver(m2m_changed, sender=Project.tools.through)
 def send_project_to_queue(sender, instance, **kwargs):
     """
-        Function responsible for sending a json with a project object to the queue.
+        Function responsible for sending a json with a the project to all queues.
     """
     # TODO: verificar uma maneira melhor de converter esse json.
+    # TODO: Fazer o envio para todas as ferramentas.
+    data = {}
+    data['name'] = instance.name
+    credential = ToolCredential.objects.get(owner=instance.owner, tool=1)
+    data['token'] = credential.token
+    data['language'] = instance.language.name
+    if kwargs['action'] == "post_remove":
+        data['action'] = "remove"
+        manage_tools(data, kwargs['pk_set'])
+    elif kwargs['action'] == "post_add":
+        data['action'] = "add"
+        manage_tools(data, kwargs['pk_set'])
 
-    team = [team.username for team in instance.team.all()]
 
-    if(team):
-        data = {}
-        data['name'] = instance.name
-        data['tools'] = {}
-        data['tools'] = [tool.name for tool in instance.tools.all()]
-        data['team'] = {}
-        data['team'] = team
-        data['language'] = instance.language.name
+@receiver(m2m_changed, sender=Project.team.through)
+def send_team_to_queue(sender, instance, **kwargs):
+    """
+        Function responsible for sending a json with a team of a project to the queue.
+    """
+    # TODO: verificar uma maneira melhor de converter esse json.
+    data = {}
+    data['name'] = instance.name
+    credential = ToolCredential.objects.get(owner=instance.owner, tool=1)
+    data['token'] = credential.token
+    if kwargs['action'] == "post_remove":
+        data['action'] = "remove"
+        manage_collaborators(data, kwargs['pk_set'])
+    elif kwargs['action'] == "post_add":
+        data['action'] = "add"
+        manage_collaborators(data, kwargs['pk_set'])
+    print(data)
 
-        # TODO: Buscar as credenciais do owner.
-        credential = ToolCredential.objects.get(owner=instance.owner, tool=1)
-        data['token'] = credential.token
-        
-        message = Message(queue="Github", exchange='',
-                          routing_key="Github", body=json.dumps(data))
-        message.send_message()
+
+def manage_collaborators(data, set_collaborators):
+    collaborators = []
+    for primaryKey in set_collaborators:
+        collaborators.append(User.objects.get(pk=primaryKey).username)
+    data['collaborators'] = collaborators
+    message = Message(queue="Github_Collaborator", exchange='',
+                      routing_key="Github_Collaborator", body=json.dumps(data))
+    message.send_message()
+
+
+def manage_tools(data, set_tools):
+    tools = []
+    for primaryKey in set_tools:
+        tools.append(Tool.objects.get(pk=primaryKey).name)
+    message = Message(queue="Github_Repository", exchange='',
+                      routing_key="Github_Repository", body=json.dumps(data))
+    message.send_message()
