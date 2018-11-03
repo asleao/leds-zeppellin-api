@@ -12,18 +12,15 @@ def send_project_to_queue(sender, instance, **kwargs):
         Function responsible for sending a json with a the project to all queues.
     """
     # TODO: verificar uma maneira melhor de converter esse json.
-    # TODO: Fazer o envio para todas as ferramentas.
     data = {}
     data['name'] = instance.name
-    credential = ToolCredential.objects.get(owner=instance.owner, tool=1)
-    data['token'] = credential.token
     data['language'] = instance.language.name
     if kwargs['action'] == "post_remove":
         data['action'] = "remove"
-        manage_tools(data, kwargs['pk_set'])
+        manage_tools(data, kwargs['pk_set'], instance.owner)
     elif kwargs['action'] == "post_add":
         data['action'] = "add"
-        manage_tools(data, kwargs['pk_set'])
+        manage_tools(data, kwargs['pk_set'], instance.owner)
 
 
 @receiver(m2m_changed, sender=Project.team.through)
@@ -42,7 +39,6 @@ def send_team_to_queue(sender, instance, **kwargs):
     elif kwargs['action'] == "post_add":
         data['action'] = "add"
         manage_collaborators(data, kwargs['pk_set'])
-    print(data)
 
 
 def manage_collaborators(data, set_collaborators):
@@ -55,10 +51,12 @@ def manage_collaborators(data, set_collaborators):
     message.send_message()
 
 
-def manage_tools(data, set_tools):
+def manage_tools(data, set_tools, owner):
     tools = []
     for primaryKey in set_tools:
         tools.append(Tool.objects.get(pk=primaryKey).name)
-    message = Message(queue="Github_Repository", exchange='',
-                      routing_key="Github_Repository", body=json.dumps(data))
-    message.send_message()
+        credential = ToolCredential.objects.get(owner=owner, tool=primaryKey)
+        data['token'] = credential.token
+        message = Message(queue="Github_Repository", exchange='',
+                          routing_key="Github_Repository", body=json.dumps(data))
+        message.send_message()
