@@ -34,9 +34,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django.contrib.sites',    
-    # # django-rest-auth
+    # django-rest-auth
     'rest_auth',
-    # # django-rest-auth - registration
+    # django-rest-auth - registration
     'allauth',
     'allauth.account',
     'rest_auth.registration',    
@@ -160,6 +160,7 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=900),
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+    'JWT_ALLOW_REFRESH': True
 }
 
 # django-rest-auth - registration config

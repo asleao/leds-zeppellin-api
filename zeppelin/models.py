@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 class Tool(models.Model):
     name = models.CharField(max_length=60, blank=False, unique=True)
+    authorization_url = models.URLField(max_length=100)
 
     def __str__(self):
         return self.name
@@ -25,7 +26,6 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
-# TODO: Criar o endpoint para passar usuario e senha e receber o token para cada ferramenta.
 class ToolCredential(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     tool = models.ForeignKey(Tool, on_delete=models.CASCADE)
