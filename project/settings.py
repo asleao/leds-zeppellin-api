@@ -33,13 +33,14 @@ INSTALLED_APPS = [
     'gunicorn',
     'rest_framework',
     'rest_framework.authtoken',
-    'django.contrib.sites',    
+    'django.contrib.sites',
     # django-rest-auth
     'rest_auth',
     # django-rest-auth - registration
     'allauth',
     'allauth.account',
-    'rest_auth.registration',    
+    'rest_auth.registration',
+    'corsheaders',
 ]
 
 
@@ -52,6 +53,7 @@ AUTHENTICATION_BACKENDS = (
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -174,8 +176,16 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = os.environ.get('EMAIL_PORT')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 
-#CloudAMQ
-import pika,logging
+# Cors
+
+CORS_ORIGIN_WHITELIST = (
+    "localhost:3000",
+    "https://leds-zeppelin-web.herokuapp.com/"
+)
+
+# CloudAMQ
+import pika
+import logging
 
 URL = os.environ.get('CLOUDAMQP_URL')
 PARAMS_AMQ = pika.URLParameters(URL)
