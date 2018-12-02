@@ -180,7 +180,7 @@ EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 
 CORS_ORIGIN_WHITELIST = (
     "localhost:3000",
-    "https://leds-zeppelin-web.herokuapp.com/"
+    "https://leds-zeppelin-web.herokuapp.com"
 )
 
 # CloudAMQ
