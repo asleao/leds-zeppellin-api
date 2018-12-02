@@ -16,7 +16,7 @@ SECRET_KEY = '*+435sj+6+e3ukdqw%392#bs7co7oy^b$x$xkbcsn#@^*azox2'
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'leds-zeppellin-api.herokuapp.com',
-                 'leds-zeppellin-api-dev.herokuapp.com', 'leds-zeppelin-web.herokuapp.com']
+                 'leds-zeppellin-api-dev.herokuapp.com']
 
 
 # Application definition
@@ -180,7 +180,7 @@ EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 
 CORS_ORIGIN_WHITELIST = (
     "localhost:3000",
-    "https://leds-zeppelin-web.herokuapp.com"
+    "leds-zeppelin-web.herokuapp.com"
 )
 
 # CloudAMQ
