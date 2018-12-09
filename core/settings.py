@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'gunicorn',
     'rest_framework',
     'corsheaders',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -155,3 +156,9 @@ URL = os.environ.get('CLOUDAMQP_URL')
 PARAMS_AMQ = pika.URLParameters(URL)
 PARAMS_AMQ.socket_timeout = 5
 logging.basicConfig()
+
+# REST FRAMEWORK
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+}

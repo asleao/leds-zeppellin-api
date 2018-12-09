@@ -23,9 +23,9 @@ from projects.api.viewsets import ProjectViewSet
 from tools.api.viewsets import ToolViewSet
 
 router = routers.DefaultRouter()
-router.register(r'projects', ProjectViewSet)
-router.register(r'tools', ToolViewSet)
-router.register(r'languages', LanguageViewSet)
+router.register(r'projects', ProjectViewSet, base_name='ProjectViewSet')
+router.register(r'tools', ToolViewSet, base_name='ToolViewSet')
+router.register(r'languages', LanguageViewSet, base_name='LanguageViewSet')
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),
