@@ -1,5 +1,6 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from projects.api.serializers import ProjectSerializer
 from projects.models import Project
@@ -11,3 +12,4 @@ class ProjectViewSet(ModelViewSet):
     serializer_class = ProjectSerializer
     filter_fields = ('owner', 'language')
     permission_classes = (IsAuthenticated,)
+    authentication_classes = (JWTAuthentication,)
