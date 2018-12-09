@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
 from rest_framework import routers
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from languages.api.viewsets import LanguageViewSet
 from projects.api.viewsets import ProjectViewSet
@@ -28,6 +29,8 @@ router.register(r'tools', ToolViewSet, base_name='ToolViewSet')
 router.register(r'languages', LanguageViewSet, base_name='LanguageViewSet')
 
 urlpatterns = [
+    path('api/v1/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/v1/', include(router.urls)),
     path('admin/', admin.site.urls),
 ]

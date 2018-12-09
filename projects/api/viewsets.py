@@ -1,3 +1,4 @@
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from projects.api.serializers import ProjectSerializer
@@ -9,3 +10,4 @@ class ProjectViewSet(ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     filter_fields = ('owner', 'language')
+    permission_classes = (IsAuthenticated,)
