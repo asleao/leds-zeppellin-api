@@ -1,4 +1,7 @@
+from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
@@ -13,3 +16,28 @@ class ProjectViewSet(ModelViewSet):
     filter_fields = ('owner', 'language')
     permission_classes = (IsAuthenticatedOrReadOnly,)
     authentication_classes = (JWTAuthentication,)
+    lookup_field = 'id'
+
+    @action(methods=['post'], detail=True)
+    def create_tools(self, request, id):
+        tools = request.data['tools']
+
+        project = Project.objects.get(id=id)
+
+        project.tools.set(tools)
+
+        project.save()
+        # TODO:tratar erros
+        return Response(status=status.HTTP_201_CREATED)
+
+    @action(methods=['post'], detail=True)
+    def create_team(self, request, id):
+        team = request.data['team']
+
+        project = Project.objects.get(id=id)
+
+        project.team.set(team)
+
+        project.save()
+        # TODO:tratar erros
+        return Response(status=status.HTTP_201_CREATED)

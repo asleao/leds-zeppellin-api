@@ -14,9 +14,9 @@ class ProjectSerializer(ModelSerializer):
     tools = ToolSerializer(many=True, read_only=True)
     team = UserSerializer(many=True, read_only=True)
     owner = UserSerializer(read_only=True)
-    owner_id = PrimaryKeyRelatedField(source='owner', queryset=User.objects.all(), write_only=True,)
+    owner_id = PrimaryKeyRelatedField(source='owner', queryset=User.objects.all(), write_only=True, )
     language = LanguageSerializer(read_only=True)
-    language_id = PrimaryKeyRelatedField(source='language', queryset=Language.objects.all(), write_only=True,)
+    language_id = PrimaryKeyRelatedField(source='language', queryset=Language.objects.all(), write_only=True, )
 
     class Meta:
         model = Project
