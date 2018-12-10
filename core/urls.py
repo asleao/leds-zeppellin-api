@@ -19,11 +19,13 @@ from django.urls import path
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+from authentications.api.viewsets import UserViewSet
 from languages.api.viewsets import LanguageViewSet
 from projects.api.viewsets import ProjectViewSet
 from tools.api.viewsets import ToolViewSet
 
 router = routers.DefaultRouter()
+router.register(r'users', UserViewSet, base_name='UserViewSet')
 router.register(r'projects', ProjectViewSet, base_name='ProjectViewSet')
 router.register(r'tools', ToolViewSet, base_name='ToolViewSet')
 router.register(r'languages', LanguageViewSet, base_name='LanguageViewSet')
