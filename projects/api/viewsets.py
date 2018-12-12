@@ -19,7 +19,7 @@ class ProjectViewSet(ModelViewSet):
     lookup_field = 'id'
 
     @action(methods=['post'], detail=True)
-    def create_tools(self, request, id):
+    def tools(self, request, id):
         tools = request.data['tools']
 
         project = Project.objects.get(id=id)
@@ -31,7 +31,7 @@ class ProjectViewSet(ModelViewSet):
         return Response(status=status.HTTP_201_CREATED)
 
     @action(methods=['post'], detail=True)
-    def create_team(self, request, id):
+    def team(self, request, id):
         team = request.data['team']
 
         project = Project.objects.get(id=id)

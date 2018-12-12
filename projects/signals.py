@@ -14,10 +14,12 @@ def send_project_to_queue(instance, **kwargs):
     """
         Function responsible for sending a json with a the project to all queues.
     """
-    # TODO: verificar uma maneira melhor de converter esse json.
-    data = {'name': instance.name, 'language': instance.language.name, 'action': kwargs['action'].split('_')[1]}
 
-    manage_tools(data, kwargs['pk_set'], instance.owner)
+    action = kwargs['action'].split('_')
+
+    if action[0] == 'post':
+        data = {'name': instance.name, 'language': instance.language.name, 'action': action[1]}
+        manage_tools(data, kwargs['pk_set'], instance.owner)
 
 
 @receiver(m2m_changed, sender=Project.team.through)
@@ -25,16 +27,13 @@ def send_team_to_queue(instance, **kwargs):
     """
         Function responsible for sending a json with a team of a project to the queue.
     """
-    # TODO: juntar com o metodo acima.
-    data = {'name': instance.name, 'action': kwargs['action'].split('_')[1]}
+    action = kwargs['action'].split('_')
 
-    credential = ToolCredential.objects.get(owner=instance.owner, tool=1)
-    data['token'] = credential.token
-    if kwargs['action'] == "post_remove":
-        data['action'] = "remove"
-        manage_collaborators(data, kwargs['pk_set'])
-    elif kwargs['action'] == "post_add":
-        data['action'] = "add"
+    if action[0] == 'post':
+        data = {'name': instance.name, 'action': action[1]}
+
+        credential = ToolCredential.objects.get(owner=instance.owner, tool=1)
+        data['token'] = credential.token
         manage_collaborators(data, kwargs['pk_set'])
 
 
