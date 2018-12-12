@@ -19,7 +19,7 @@ from django.urls import path
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from authentications.api.viewsets import UserViewSet
+from users.api.viewsets import UserViewSet
 from languages.api.viewsets import LanguageViewSet
 from projects.api.viewsets import ProjectViewSet
 from tools.api.viewsets import ToolViewSet
