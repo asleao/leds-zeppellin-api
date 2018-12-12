@@ -2,7 +2,7 @@ from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer
 from rest_framework_simplejwt.state import User
 
-from authentications.api.serializers import UserSerializer
+from users.api.serializers import UserSerializer
 from languages.api.serializers import LanguageSerializer
 from languages.models import Language
 from projects.models import Project
