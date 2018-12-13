@@ -9,4 +9,3 @@ class UserViewSet(ModelViewSet):
     """Handle creating, reading and updating User"""
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsAdminUser,)
