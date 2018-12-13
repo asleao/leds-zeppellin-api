@@ -1,7 +1,5 @@
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
-from django.contrib.auth.validators import UnicodeUsernameValidator
-from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer
 
 
@@ -13,6 +11,7 @@ class UserSerializer(ModelSerializer):
         fields = ['id', 'username', 'email', 'password']
         read_only_fields = ('id',)
         extra_kwargs = {
+            'email': {'write_only': True},
             'password': {'write_only': True},
         }
 

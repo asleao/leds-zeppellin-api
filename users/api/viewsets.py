@@ -1,4 +1,3 @@
-from rest_framework.permissions import IsAdminUser
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.state import User
 
