@@ -2,9 +2,9 @@ dist: trusty
 sudo: false
 language: python
 python:
-- '3.5'
+  - '3.5'
 jdk:
-- oraclejdk8
+  - oraclejdk8
 addons:
   sonarcloud:
     organization: asleao-github
@@ -13,18 +13,23 @@ addons:
     github_token:
       secure: "$GITHUB_TOKEN"
     branches:
-    - master
-    - develop
+      - master
+      - develop
 install:
-- pip install -r requirements.txt
+  - pip install -r requirements.txt
 script:
-- sonar-scanner -Dsonar.login=$SONAR_TOKEN
+  - sonar-scanner -Dsonar.login=$SONAR_TOKEN
 deploy:
   provider: heroku
   api_key:
     secure: S3XrQLJd8zsMFD/YpZBZonARa0I/TnHPN1FMKf39Xce614qqvUw1qJR8wLO/KIuYbjwkzmp/YO+ii2s9EI1VP2INuExJgMatk2gF5kIyv6arVfzGEpqeA1LvGCA/AeR7De5l6gowgN4K/svb6a/b2xmmvXHx7UH64NFmStmeSS1DUBG4pSqeWLtuRtzb63IprT/MBOzryvuM0n/8RwUCpSdDmWuRb9uQds/OjmZOHsFwqkMe5D4oeRTp8fZSmcPA/ahfshZbUAZ+B168yhFo7/VQ9J/21xmkXyFcd9e3kR8qtyu485OUUiIOeJVh7pQzxpoVSL2QnuWt06Csbts8Atk1fcxflmd8rfQDC6ReQnBXBZJuylfkPFvus84cbxQ2P0PJIo5i8ry6M4bKTwOOmQKF9vMKgx2BacmeNWqrKMbpXhc4ltEHt3SutyWkK4HF4Wcf6oNFQDNAp2BmY0lfBEpzK21c5XKZgvZ9MPCmDosGV9I8ojvk9iPkqst9VBbLoBvSCh0QbYkhtPq1WL4L0W42M8dAzoQy336yVIr8zUrj4MiGxA+rUTRV2tZpL2qcxxS8YhBqeKPSFfmUwIXLN2Pa1Cdkko/dRFTvOmH43QMV+Gj1GvfHvnxNAaE5/xs9H1To7FZFKFZFEcbmX9aDz/iqqsANDgMsa6iofeuZ8+0=
-  app: 
+  app:
     master: leds-zeppellin-api
     develop: leds-zeppellin-api-dev
   on:
     repo: asleao/leds-zeppellin-api
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
