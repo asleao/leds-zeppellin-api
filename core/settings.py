@@ -44,10 +44,12 @@ INSTALLED_APPS = [
     'languages',
     'tools',
     'projects',
+    'docs',
     'gunicorn',
     'rest_framework',
     'corsheaders',
     'django_filters',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -182,4 +184,12 @@ SIMPLE_JWT = {
     'USER_ID_FIELD': 'username'
     ,
     'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+# Swagger
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+    'SHOW_REQUEST_HEADERS': True,
+    'SECURITY_DEFINITIONS': None,
+    'APIS_SORTER': 'alpha'
 }
