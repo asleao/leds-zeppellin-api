@@ -44,10 +44,12 @@ INSTALLED_APPS = [
     'languages',
     'tools',
     'projects',
+    'docs',
     'gunicorn',
     'rest_framework',
     'corsheaders',
     'django_filters',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
