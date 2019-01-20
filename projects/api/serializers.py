@@ -1,12 +1,13 @@
+from rest_framework.exceptions import ValidationError
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer
 from rest_framework_simplejwt.state import User
 
-from users.api.serializers import UserSerializer
 from languages.api.serializers import LanguageSerializer
 from languages.models import Language
 from projects.models import Project
 from tools.api.serializers import ToolSerializer
+from users.api.serializers import UserSerializer
 
 
 class ProjectSerializer(ModelSerializer):
@@ -21,3 +22,8 @@ class ProjectSerializer(ModelSerializer):
     class Meta:
         model = Project
         fields = ['id', 'name', 'tools', 'team', 'owner', 'owner_id', 'language', 'language_id']
+
+    def validate_name(self, value):
+        if ' ' in value['name']:
+            raise ValidationError({'name': ["O campo nome não pode conter espaços", ]})
+        return value
