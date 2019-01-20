@@ -24,6 +24,6 @@ class ProjectSerializer(ModelSerializer):
         fields = ['id', 'name', 'tools', 'team', 'owner', 'owner_id', 'language', 'language_id']
 
     def validate_name(self, value):
-        if ' ' in value['name']:
-            raise ValidationError({'name': ["O campo nome não pode conter espaços", ]})
+        if ' ' in value:
+            raise ValidationError("O campo nome não pode conter espaços")
         return value
