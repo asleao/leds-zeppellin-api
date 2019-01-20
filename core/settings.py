@@ -185,3 +185,11 @@ SIMPLE_JWT = {
     ,
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
+
+# Swagger
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+    'SHOW_REQUEST_HEADERS': True,
+    'SECURITY_DEFINITIONS': None,
+    'APIS_SORTER': 'alpha'
+}
