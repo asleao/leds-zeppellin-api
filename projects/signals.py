@@ -49,9 +49,9 @@ def manage_collaborators(data, set_collaborators):
 
 def manage_tools(data, set_tools, owner):
     tools = []
-    for primaryKey in set_tools:
-        tools.append(Tool.objects.get(pk=primaryKey).name)
-        credential = ToolCredential.objects.get(owner=owner, tool=primaryKey)
+    for tool_id in set_tools:
+        tools.append(Tool.objects.get(pk=tool_id).name)
+        credential = ToolCredential.objects.get(owner=owner, tool=tool_id)
         data['token'] = credential.token
         message = Message(queue="Github_Repository", exchange='',
                           routing_key="Github_Repository", body=json.dumps(data))

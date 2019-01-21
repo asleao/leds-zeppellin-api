@@ -17,3 +17,7 @@ class ToolCredential(models.Model):
 
     def __str__(self):
         return self.tool.name
+
+    @property
+    def is_created(self):
+        return self.token != ""
