@@ -1,9 +1,9 @@
-import pytest
+from django.test import TestCase
+
 from mixer.backend.django import mixer
 
 
-@pytest.mark.django_db
-class TestModels:
+class TestModels(TestCase):
 
     def test_tool_is_created(self):
         tool_credential = mixer.blend('tools.ToolCredential', token="123456")

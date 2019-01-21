@@ -1,20 +1,18 @@
-import pytest
 from django.contrib.auth.models import User
+from django.test import TestCase
 from mixer.backend.django import mixer
 
 
-@pytest.mark.django_db
-class TestModels:
+class TestModels(TestCase):
+
+    def setUp(self):
+        self.user = mixer.blend(User)
+        self.tool = mixer.blend("tools.Tool")
 
     def test_user_have_tool_credential(self):
-        user = mixer.blend(User)
-        tool = mixer.blend("tools.Tool")
-        mixer.blend("tools.ToolCredential", owner=user, tool=tool)
+        mixer.blend("tools.ToolCredential", owner=self.user, tool=self.tool)
 
-        assert user.have_tool_credential(tool=tool) == True
+        assert self.user.have_tool_credential(tool=self.tool) == True
 
     def test_user_not_have_tool_credential(self):
-        user = mixer.blend(User)
-        tool = mixer.blend("tools.Tool")
-
-        assert user.have_tool_credential(tool=tool) == False
+        assert self.user.have_tool_credential(tool=self.tool) == False
