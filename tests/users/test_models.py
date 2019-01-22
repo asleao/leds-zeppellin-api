@@ -9,10 +9,10 @@ class TestModels(TestCase):
         self.user = mixer.blend(User)
         self.tool = mixer.blend("tools.Tool")
 
-    def test_user_have_tool_credential(self):
+    def test_user_has_tool_credential(self):
         mixer.blend("tools.ToolCredential", owner=self.user, tool=self.tool)
 
-        assert self.user.have_tool_credential(tool=self.tool) == True
+        assert self.user.has_tool_credential(tool=self.tool) == True
 
-    def test_user_not_have_tool_credential(self):
-        assert self.user.have_tool_credential(tool=self.tool) == False
+    def test_user_not_has_tool_credential(self):
+        assert self.user.has_tool_credential(tool=self.tool) == False
