@@ -18,6 +18,7 @@ addons:
 install:
   - pip install -r requirements.txt
 script:
+  - pytest
   - sonar-scanner -Dsonar.login=$SONAR_TOKEN
 deploy:
   provider: heroku
