@@ -12,9 +12,7 @@ addons:
       secure: "$SONAR_TOKEN"
     github_token:
       secure: "$GITHUB_TOKEN"
-    branches:
-      - master
-      - develop
+
 install:
   - pip install -r requirements.txt
 script:
