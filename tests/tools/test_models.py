@@ -1,14 +1,18 @@
-from django.test import TestCase
+import pytest
 
 from mixer.backend.django import mixer
 
 
-class TestModels(TestCase):
+@pytest.fixture
+def credential(request, db):
+    return mixer.blend('tools.ToolCredential', token=request.param)
 
-    def test_tool_is_created(self):
-        tool_credential = mixer.blend('tools.ToolCredential', token="123456")
-        assert tool_credential.is_created == True
 
-    def test_tool_is_not_created(self):
-        tool_credential = mixer.blend('tools.ToolCredential', token="")
-        assert tool_credential.is_created == False
+@pytest.mark.parametrize('credential', ['123456'], indirect=True)
+def test_tool_is_created(credential):
+    assert credential.is_created == True
+
+
+@pytest.mark.parametrize('credential', [''], indirect=True)
+def test_tool_is_not_created(credential):
+    assert credential.is_created == False
