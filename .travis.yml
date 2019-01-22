@@ -2,7 +2,7 @@ dist: trusty
 sudo: false
 language: python
 python:
-  - '3.7'
+  - '3.6'
 jdk:
   - oraclejdk8
 addons:
