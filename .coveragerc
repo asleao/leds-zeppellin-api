@@ -1,4 +1,5 @@
 [run]
 omit = env/*
        */tests/*
+       */factories/*
        */migrations/*
