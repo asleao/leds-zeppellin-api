@@ -30,10 +30,9 @@ def tools_with_no_credentials(db):
     return tools
 
 
-def test_project_owner_has_tool_credentials(owner, tools_with_credentials):
+def test_owner_has_tool_credentials(owner, tools_with_credentials):
     assert len(tools_without_credentials(owner, tools_with_credentials)) == 0
 
 
-def test_project_owner_has_no_tool_credentials(owner, tools_with_no_credentials):
+def test_owner_has_no_tool_credentials(owner, tools_with_no_credentials):
     assert len(tools_without_credentials(owner, tools_with_no_credentials)) == 10
-
