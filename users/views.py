@@ -1,3 +1,5 @@
-from django.shortcuts import render
+from tools.models import ToolCredential
 
-# Create your views here.
+
+def has_tool_credential(user, tool):
+    return ToolCredential.objects.filter(owner=user, tool=tool).exists()

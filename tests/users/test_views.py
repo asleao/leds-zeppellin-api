@@ -2,6 +2,8 @@ import pytest
 from django.contrib.auth.models import User
 from mixer.backend.django import mixer
 
+from users.views import has_tool_credential
+
 
 @pytest.fixture
 def user(db):
@@ -16,8 +18,8 @@ def tool(db):
 def test_user_has_tool_credential(user, tool):
     mixer.blend("tools.ToolCredential", owner=user, tool=tool)
 
-    assert user.has_tool_credential(tool=tool) == True
+    assert has_tool_credential(user=user, tool=tool) == True
 
 
 def test_user_not_has_tool_credential(user, tool):
-    assert user.has_tool_credential(tool=tool) == False
+    assert has_tool_credential(user=user, tool=tool) == False
