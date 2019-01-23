@@ -24,6 +24,7 @@ class ProjectViewSet(ModelViewSet):
 
         project = Project.objects.get(id=id)
 
+
         project.tools.set(tools)
 
         project.save()
