@@ -7,6 +7,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from projects.api.serializers import ProjectSerializer
 from projects.models import Project
+from tools.views import tools_without_credentials
 
 
 class ProjectViewSet(ModelViewSet):
@@ -21,24 +22,26 @@ class ProjectViewSet(ModelViewSet):
     @action(methods=['post'], detail=True)
     def tools(self, request, id):
         tools = request.data['tools']
-
         project = Project.objects.get(id=id)
+        tools_pending_credentials = tools_without_credentials(project.owner, tools)
+        if len(tools_pending_credentials) > 0:
+            return Response(status=status.HTTP_400_BAD_REQUEST,
+                            data={"detail": "Owner need tool credentials.",
+                                  "tools_pending_credentials": tools_pending_credentials})
+        else:
+            project.tools.set(tools)
+            project.save()
+            return Response(status=status.HTTP_201_CREATED)
 
 
-        project.tools.set(tools)
+@action(methods=['post'], detail=True)
+def team(self, request, id):
+    team = request.data['team']
 
-        project.save()
-        # TODO:tratar erros
-        return Response(status=status.HTTP_201_CREATED)
+    project = Project.objects.get(id=id)
 
-    @action(methods=['post'], detail=True)
-    def team(self, request, id):
-        team = request.data['team']
+    project.team.set(team)
 
-        project = Project.objects.get(id=id)
-
-        project.team.set(team)
-
-        project.save()
-        # TODO:tratar erros
-        return Response(status=status.HTTP_201_CREATED)
+    project.save()
+    # TODO:tratar erros
+    return Response(status=status.HTTP_201_CREATED)
