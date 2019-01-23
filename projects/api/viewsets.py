@@ -33,15 +33,14 @@ class ProjectViewSet(ModelViewSet):
             project.save()
             return Response(status=status.HTTP_201_CREATED)
 
+    @action(methods=['post'], detail=True)
+    def team(self, request, id):
+        team = request.data['team']
 
-@action(methods=['post'], detail=True)
-def team(self, request, id):
-    team = request.data['team']
+        project = Project.objects.get(id=id)
 
-    project = Project.objects.get(id=id)
+        project.team.set(team)
 
-    project.team.set(team)
-
-    project.save()
-    # TODO:tratar erros
-    return Response(status=status.HTTP_201_CREATED)
+        project.save()
+        # TODO:tratar erros
+        return Response(status=status.HTTP_201_CREATED)
