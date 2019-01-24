@@ -6,7 +6,7 @@ from django.dispatch import receiver
 
 from core.message import Message
 from tools.models import ToolCredential, Tool
-from .models import Project
+from .models import Project, ToolMessage, ToolSignalData
 
 
 @receiver(m2m_changed, sender=Project.tools.through)
@@ -18,8 +18,12 @@ def send_project_to_queue(instance, **kwargs):
     action = kwargs['action'].split('_')
 
     if action[0] == 'post':
-        data = {'name': instance.name, 'language': instance.language.name, 'action': action[1]}
-        manage_tools(data, kwargs['pk_set'], instance.owner)
+        set_tools = kwargs['pk_set']
+        queue_sufix = "Repository"
+        messages = tool_messages(ToolSignalData(instance, action[1], set_tools))
+        send_messages(queue_sufix, messages)
+        # data = {'name': instance.name, 'language': instance.language.name, 'action': action[1]}
+        # manage_tools(data, kwargs['pk_set'], instance.owner)
 
 
 @receiver(m2m_changed, sender=Project.team.through)
@@ -47,12 +51,16 @@ def manage_collaborators(data, set_collaborators):
     message.send_message()
 
 
-def manage_tools(data, set_tools, owner):
-    tools = []
-    for tool_id in set_tools:
-        tools.append(Tool.objects.get(pk=tool_id).name)
-        credential = ToolCredential.objects.get(owner=owner, tool=tool_id)
-        data['token'] = credential.token
-        message = Message(queue="Github_Repository", exchange='',
-                          routing_key="Github_Repository", body=json.dumps(data))
-        message.send_message()
+def tool_messages(signal_data):
+    messages = []
+    for tool_id in signal_data.set_tools:
+        tool = Tool.objects.get(pk=tool_id)
+        message = ToolMessage(signal_data.instance.language.name, signal_data.instance.name, signal_data.action,
+                              tool.name)
+        messages.append(message)
+    return messages
+
+
+def send_messages(queue_sufix, messages):
+    for message in messages:
+        message.message(queue_sufix).send_message()

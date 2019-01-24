@@ -23,5 +23,5 @@ class Message:
 
         channel.basic_publish(exchange=self.exchange,
                               routing_key=self.routing_key, body=self.body) # Send message
-        print("[x] Message sent to consumer")
+        # print("[x] Message sent to consumer")
         connection.close()
