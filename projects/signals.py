@@ -23,6 +23,7 @@ def send_project_to_queue(instance, **kwargs):
         messages = tool_messages(ToolSignalData(instance, action[1], set_tools))
         send_messages(queue_sufix, messages)
 
+
 @receiver(m2m_changed, sender=Project.team.through)
 def send_team_to_queue(instance, **kwargs):
     """
