@@ -22,9 +22,6 @@ def send_project_to_queue(instance, **kwargs):
         queue_sufix = "Repository"
         messages = tool_messages(ToolSignalData(instance, action[1], set_tools))
         send_messages(queue_sufix, messages)
-        # data = {'name': instance.name, 'language': instance.language.name, 'action': action[1]}
-        # manage_tools(data, kwargs['pk_set'], instance.owner)
-
 
 @receiver(m2m_changed, sender=Project.team.through)
 def send_team_to_queue(instance, **kwargs):
