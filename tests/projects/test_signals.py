@@ -4,6 +4,7 @@ from mixer.backend.django import mixer
 
 from factories.projects.tool_signal_data_factory import ToolSignalDataFactory
 from factories.tools.tool_factory import ToolFactory
+from projects.signals import tool_messages
 
 
 @pytest.fixture
@@ -27,10 +28,10 @@ def tools_with_credentials(owner):
 
 
 @pytest.fixture
-def signal_data(db):
-    return ToolSignalDataFactory()
+def signal_data(tools_with_credentials):
+    return ToolSignalDataFactory(action='add', set_tools=tools_with_credentials.keys())
 
 
-# def test_send_project_to_queue(signal_data):
-    # tool_messages(signal_data)
-    # assert len(tool_messages) == 10
+def test_tool_messages(signal_data):
+    messages = tool_messages(signal_data)
+    assert len(messages) == 10

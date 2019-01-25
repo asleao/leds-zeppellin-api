@@ -33,7 +33,7 @@ class MessageQueue(ABC):
 
 
 class ToolMessage(MessageQueue):
-
+    # TODO Verificar se tem como generalizar.
     def message(self, queue_sufix):
         return Message(queue=f"{self.tool}_{queue_sufix}", exchange='',
                        routing_key=f"{self.tool}_{queue_sufix}", body=json.dumps(self.__dict__))
