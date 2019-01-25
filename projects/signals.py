@@ -1,12 +1,9 @@
-import json
-
 from django.contrib.auth.models import User
 from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
 
-from core.message import Message
 from tools.models import ToolCredential, Tool
-from .models import Project, ToolMessage, ToolSignalData
+from .models import Project, ToolMessage, ToolSignalData, CollaboratorSignalData, CollaboratorMessage
 
 
 @receiver(m2m_changed, sender=Project.tools.through)
@@ -20,7 +17,8 @@ def send_project_to_queue(instance, **kwargs):
     if action[0] == 'post':
         set_tools = kwargs['pk_set']
         queue_sufix = "Repository"
-        messages = tool_messages(ToolSignalData(instance, action[1], set_tools))
+        tools = Tool.objects.filter(pk__in=set_tools)
+        messages = tool_messages(ToolSignalData(instance, action[1], tools))
         send_messages(queue_sufix, messages)
 
 
@@ -32,27 +30,27 @@ def send_team_to_queue(instance, **kwargs):
     action = kwargs['action'].split('_')
 
     if action[0] == 'post':
-        data = {'name': instance.name, 'action': action[1]}
+        set_collaborators = kwargs['pk_set']
+        queue_sufix = "Collaborator"
+        collaborators = User.objects.filter(pk__in=set_collaborators)
+        messages = collaborator_messages(CollaboratorSignalData(instance, action[1], collaborators))
+        send_messages(queue_sufix, messages)
 
-        credential = ToolCredential.objects.get(owner=instance.owner, tool=1)
-        data['token'] = credential.token
-        manage_collaborators(data, kwargs['pk_set'])
 
-
-def manage_collaborators(data, set_collaborators):
-    collaborators = []
-    for primaryKey in set_collaborators:
-        collaborators.append(User.objects.get(pk=primaryKey).username)
-    data['collaborators'] = collaborators
-    message = Message(queue="Github_Collaborator", exchange='',
-                      routing_key="Github_Collaborator", body=json.dumps(data))
-    message.send_message()
+def collaborator_messages(signal_data):
+    messages = []
+    for collaborator in signal_data.collaborators:
+        for tool in signal_data.instance.tools.all():
+            credential = ToolCredential.objects.get(owner=signal_data.instance.owner, tool=tool)
+            message = CollaboratorMessage(signal_data.instance.language.name, signal_data.instance.name,
+                                          signal_data.action, tool.name, collaborator, credential.token)
+            messages.append(message)
+    return messages
 
 
 def tool_messages(signal_data):
     messages = []
-    for tool_id in signal_data.set_tools:
-        tool = Tool.objects.get(pk=tool_id)
+    for tool in signal_data.tools:
         message = ToolMessage(signal_data.instance.language.name, signal_data.instance.name, signal_data.action,
                               tool.name)
         messages.append(message)

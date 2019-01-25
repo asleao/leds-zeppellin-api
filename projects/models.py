@@ -44,6 +44,14 @@ class ToolMessage(MessageQueue):
         self.tool = tool
 
 
+class CollaboratorMessage(ToolMessage):
+
+    def __init__(self, language, name, action, tool, collaborator, token):
+        super().__init__(language, name, action, tool)
+        self.collaborator = collaborator
+        self.token = token
+
+
 class SignalData(ABC):
 
     def __init__(self, instance, action):
@@ -53,8 +61,13 @@ class SignalData(ABC):
 
 class ToolSignalData(SignalData):
 
-    def __init__(self, instance, action, set_tools):
+    def __init__(self, instance, action, tools):
         super().__init__(instance, action)
-        self.instance = instance
-        self.action = action
-        self.set_tools = set_tools
+        self.tools = tools
+
+
+class CollaboratorSignalData(SignalData):
+
+    def __init__(self, instance, action, collaborators):
+        super().__init__(instance, action)
+        self.collaborators = collaborators

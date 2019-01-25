@@ -2,9 +2,10 @@ import pytest
 from django.contrib.auth.models import User
 from mixer.backend.django import mixer
 
+from factories.projects.collaborator_signal_data_factory import CollaboratorSignalDataFactory
 from factories.projects.tool_signal_data_factory import ToolSignalDataFactory
 from factories.tools.tool_factory import ToolFactory
-from projects.signals import tool_messages
+from projects.signals import tool_messages, collaborator_messages
 
 
 @pytest.fixture
@@ -28,10 +29,28 @@ def tools_with_credentials(owner):
 
 
 @pytest.fixture
-def signal_data(tools_with_credentials):
-    return ToolSignalDataFactory(action='add', set_tools=tools_with_credentials.keys())
+def tool_signal_data(tools_with_credentials):
+    return ToolSignalDataFactory(action='post', tools=tools_with_credentials.values())
 
 
-def test_tool_messages(signal_data):
-    messages = tool_messages(signal_data)
+@pytest.fixture
+def collaborators(db):
+    return mixer.cycle(1).blend(User)
+
+
+@pytest.fixture
+def collaborator_signal_data(project, collaborators, tools_with_credentials):
+    project.tools.set(tools_with_credentials.keys())
+    print(len(project.tools.all()))
+    return CollaboratorSignalDataFactory(instance=project, action='post',
+                                         collaborators=collaborators)
+
+
+def test_tool_messages(tool_signal_data):
+    messages = tool_messages(tool_signal_data)
+    assert len(messages) == 10
+
+
+def test_collaborator_messages(collaborator_signal_data):
+    messages = collaborator_messages(collaborator_signal_data)
     assert len(messages) == 10
