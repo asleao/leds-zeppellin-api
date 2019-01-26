@@ -19,7 +19,7 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
-    def hasTools(self):
+    def has_tools(self):
         return self.tools.exists()
 
 

@@ -39,7 +39,7 @@ class ProjectViewSet(ModelViewSet):
 
         project = Project.objects.get(id=id)
 
-        if not project.hasTools():
+        if not project.has_tools():
             return Response(status=status.HTTP_400_BAD_REQUEST,
                             data={"detail": "Tools need to be created first."})
 
