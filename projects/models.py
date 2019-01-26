@@ -19,6 +19,9 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+    def hasTools(self):
+        return self.tools.exists()
+
 
 class MessageQueue(ABC):
 
