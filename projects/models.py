@@ -25,9 +25,11 @@ class Project(models.Model):
 
 class MessageQueue(ABC):
 
-    def __init__(self, name, action):
+    def __init__(self, name, action, token, language):
         self.name = name
         self.action = action
+        self.token = token
+        self.language = language
         super(MessageQueue, self).__init__()
 
     @abstractmethod
@@ -41,17 +43,16 @@ class ToolMessage(MessageQueue):
         return Message(queue=f"{self.tool}_{queue_sufix}", exchange='',
                        routing_key=f"{self.tool}_{queue_sufix}", body=json.dumps(self.__dict__))
 
-    def __init__(self, language, name, action, tool):
-        super().__init__(name, action)
-        self.language = language
+    def __init__(self, name, action, token, language, tool):
+        super().__init__(name, action, token, language)
         self.tool = tool
 
 
 class CollaboratorMessage(ToolMessage):
-    def __init__(self, language, name, action, tool, collaborator, token):
-        super().__init__(language, name, action, tool)
+
+    def __init__(self, name, action, token, tool, language, collaborator):
+        super().__init__(name, action, token, language, tool)
         self.collaborator = collaborator
-        self.token = token
 
 
 class SignalData(ABC):

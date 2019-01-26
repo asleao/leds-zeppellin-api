@@ -7,8 +7,8 @@ def collaborator_messages(signal_data):
     for collaborator in signal_data.collaborators:
         for tool in signal_data.instance.tools.all():
             credential = ToolCredential.objects.get(owner=signal_data.instance.owner, tool=tool)
-            message = CollaboratorMessage(signal_data.instance.language.name, signal_data.instance.name,
-                                          signal_data.action, tool.name, collaborator.username, credential.token)
+            message = CollaboratorMessage(signal_data.instance.name, signal_data.action, credential.token,
+                                          tool.name, signal_data.instance.language.name, collaborator.username)
             messages.append(message)
     return messages
 
@@ -16,8 +16,9 @@ def collaborator_messages(signal_data):
 def tool_messages(signal_data):
     messages = []
     for tool in signal_data.tools:
-        message = ToolMessage(signal_data.instance.language.name, signal_data.instance.name, signal_data.action,
-                              tool.name)
+        credential = ToolCredential.objects.get(owner=signal_data.instance.owner, tool=tool)
+        message = ToolMessage(signal_data.instance.name, signal_data.action, credential.token,
+                              signal_data.instance.language.name, tool.name)
         messages.append(message)
     return messages
 

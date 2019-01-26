@@ -1,7 +1,7 @@
+import factory
 import pytest
 from django.contrib.auth.models import User
 from django.db.models import signals
-import factory
 from mixer.backend.django import mixer
 
 from factories.projects.collaborator_signal_data_factory import CollaboratorSignalDataFactory
@@ -31,8 +31,9 @@ def tools_with_credentials(owner):
 
 
 @pytest.fixture
-def tool_signal_data(tools_with_credentials):
-    return ToolSignalDataFactory(action='post', tools=tools_with_credentials.values())
+@factory.django.mute_signals(signals.pre_save, signals.post_save, signals.m2m_changed)
+def tool_signal_data(project, tools_with_credentials):
+    return ToolSignalDataFactory(instance=project, action='post', tools=tools_with_credentials.values())
 
 
 @pytest.fixture
