@@ -2,8 +2,9 @@ from django.contrib.auth.models import User
 from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
 
-from tools.models import ToolCredential, Tool
-from .models import Project, ToolMessage, ToolSignalData, CollaboratorSignalData, CollaboratorMessage
+from projects.views import send_messages, collaborator_messages, tool_messages
+from tools.models import Tool
+from .models import Project, ToolSignalData, CollaboratorSignalData
 
 
 @receiver(m2m_changed, sender=Project.tools.through)
@@ -35,28 +36,3 @@ def send_team_to_queue(instance, **kwargs):
         collaborators = User.objects.filter(pk__in=set_collaborators)
         messages = collaborator_messages(CollaboratorSignalData(instance, action[1], collaborators))
         send_messages(queue_sufix, messages)
-
-
-def collaborator_messages(signal_data):
-    messages = []
-    for collaborator in signal_data.collaborators:
-        for tool in signal_data.instance.tools.all():
-            credential = ToolCredential.objects.get(owner=signal_data.instance.owner, tool=tool)
-            message = CollaboratorMessage(signal_data.instance.language.name, signal_data.instance.name,
-                                          signal_data.action, tool.name, collaborator.username, credential.token)
-            messages.append(message)
-    return messages
-
-
-def tool_messages(signal_data):
-    messages = []
-    for tool in signal_data.tools:
-        message = ToolMessage(signal_data.instance.language.name, signal_data.instance.name, signal_data.action,
-                              tool.name)
-        messages.append(message)
-    return messages
-
-
-def send_messages(queue_sufix, messages):
-    for message in messages:
-        message.message(queue_sufix).send_message()
