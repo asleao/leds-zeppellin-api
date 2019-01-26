@@ -108,3 +108,5 @@ ENV/
 
 .data.json
 .idea/
+
+.environment.env
