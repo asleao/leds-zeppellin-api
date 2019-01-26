@@ -22,5 +22,3 @@ class UserViewSet(ModelViewSet):
         else:
             permission_classes = [IsAdminOrIsSelf]
         return [permission() for permission in permission_classes]
-
-    # TODO Criar action para admin e adicionar permissões ao endpoint.
