@@ -45,7 +45,6 @@ class ToolMessage(MessageQueue):
 
 
 class CollaboratorMessage(ToolMessage):
-
     def __init__(self, language, name, action, tool, collaborator, token):
         super().__init__(language, name, action, tool)
         self.collaborator = collaborator
