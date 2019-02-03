@@ -17,7 +17,7 @@ def send_project_to_queue(instance, **kwargs):
 
     if action[0] == 'post':
         set_tools = kwargs['pk_set']
-        queue_sufix = "Repository"
+        queue_sufix = "Repository_Test"
         tools = Tool.objects.filter(pk__in=set_tools)
         messages = tool_messages(ToolSignalData(instance, action[1], tools))
         send_messages(queue_sufix, messages)
@@ -32,7 +32,7 @@ def send_team_to_queue(instance, **kwargs):
 
     if action[0] == 'post':
         set_collaborators = kwargs['pk_set']
-        queue_sufix = "Collaborator"
+        queue_sufix = "Collaborator_Test"
         collaborators = User.objects.filter(pk__in=set_collaborators)
         messages = collaborator_messages(CollaboratorSignalData(instance, action[1], collaborators))
         send_messages(queue_sufix, messages)

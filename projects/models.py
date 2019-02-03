@@ -50,9 +50,9 @@ class ToolMessage(MessageQueue):
 
 class CollaboratorMessage(ToolMessage):
 
-    def __init__(self, name, action, token, tool, language, collaborator):
+    def __init__(self, name, action, token, tool, language, collaborators):
         super().__init__(name, action, token, language, tool)
-        self.collaborator = collaborator
+        self.collaborators = collaborators
 
 
 class SignalData(ABC):
