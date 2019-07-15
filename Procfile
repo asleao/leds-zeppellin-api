@@ -1,2 +1,2 @@
 release: python3 manage.py migrate
-web: gunicorn project.wsgi --log-file -
+web: gunicorn core.wsgi --log-file -

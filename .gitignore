@@ -103,5 +103,10 @@ ENV/
 # Sonar
 .sonar
 
-#Visual Code
+#VSCODE
 .vscode/
+
+.data.json
+.idea/
+
+.environment.env

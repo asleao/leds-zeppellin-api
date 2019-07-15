@@ -2,9 +2,9 @@ dist: trusty
 sudo: false
 language: python
 python:
-- '3.5'
+  - '3.6'
 jdk:
-- oraclejdk8
+  - oraclejdk8
 addons:
   sonarcloud:
     organization: asleao-github
@@ -12,13 +12,12 @@ addons:
       secure: "$SONAR_TOKEN"
     github_token:
       secure: "$GITHUB_TOKEN"
-    branches:
-    - master
-    - develop
+
 install:
-- pip install -r requirements.txt
+  - pip install -r requirements.txt
 script:
-- sonar-scanner -Dsonar.login=$SONAR_TOKEN
+  - pytest
+  - sonar-scanner -Dsonar.login=$SONAR_TOKEN
 deploy:
   provider: heroku
   api_key:
@@ -28,3 +27,8 @@ deploy:
     develop: leds-zeppellin-api-dev
   on:
     repo: asleao/leds-zeppellin-api
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
