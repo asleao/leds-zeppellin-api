@@ -24,7 +24,6 @@ class ToolViewSet(ModelViewSet):
         if request.method == 'POST':
             owner = User.objects.get(pk=request.data['owner_id'])
             username = request.data['username']
-            password = request.data['password']
             token = request.data['token']
 
             credential = ToolCredential.objects.filter(owner=owner, tool_id=id)
@@ -39,13 +38,12 @@ class ToolViewSet(ModelViewSet):
                 return Response(status=status.HTTP_400_BAD_REQUEST,
                                 data={"detail": "Username field is required."})
 
-            if not password and not token:
+            if not token:
                 return Response(status=status.HTTP_400_BAD_REQUEST,
-                                data={"detail": "A token or a password should be provided."})
+                                data={"detail": "Token field is required."})
 
             toolcredential = ToolCredential(owner=owner,
                                             tool_id=id,
-                                            username=username,
                                             password=password,
                                             token=token)
             toolcredential.save()
