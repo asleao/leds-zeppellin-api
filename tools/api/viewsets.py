@@ -28,7 +28,7 @@ class ToolViewSet(ModelViewSet):
             token = request.data['token']
 
             credential = ToolCredential.objects.filter(owner=owner, tool_id=id)
-
+            # TODO test more cases of validation
             if credential.exists():
                 return Response(status=status.HTTP_400_BAD_REQUEST,
                                 data={
@@ -39,7 +39,7 @@ class ToolViewSet(ModelViewSet):
                 return Response(status=status.HTTP_400_BAD_REQUEST,
                                 data={"detail": "Username field is required."})
 
-            if not password or not token:
+            if not password and not token:
                 return Response(status=status.HTTP_400_BAD_REQUEST,
                                 data={"detail": "A token or a password should be provided."})
 
