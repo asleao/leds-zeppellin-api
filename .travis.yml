@@ -12,7 +12,6 @@ addons:
       secure: "$SONAR_TOKEN"
     github_token:
       secure: "$GITHUB_TOKEN"
-
 install:
   - pip install -r requirements.txt
 script:
@@ -21,8 +20,8 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: S3XrQLJd8zsMFD/YpZBZonARa0I/TnHPN1FMKf39Xce614qqvUw1qJR8wLO/KIuYbjwkzmp/YO+ii2s9EI1VP2INuExJgMatk2gF5kIyv6arVfzGEpqeA1LvGCA/AeR7De5l6gowgN4K/svb6a/b2xmmvXHx7UH64NFmStmeSS1DUBG4pSqeWLtuRtzb63IprT/MBOzryvuM0n/8RwUCpSdDmWuRb9uQds/OjmZOHsFwqkMe5D4oeRTp8fZSmcPA/ahfshZbUAZ+B168yhFo7/VQ9J/21xmkXyFcd9e3kR8qtyu485OUUiIOeJVh7pQzxpoVSL2QnuWt06Csbts8Atk1fcxflmd8rfQDC6ReQnBXBZJuylfkPFvus84cbxQ2P0PJIo5i8ry6M4bKTwOOmQKF9vMKgx2BacmeNWqrKMbpXhc4ltEHt3SutyWkK4HF4Wcf6oNFQDNAp2BmY0lfBEpzK21c5XKZgvZ9MPCmDosGV9I8ojvk9iPkqst9VBbLoBvSCh0QbYkhtPq1WL4L0W42M8dAzoQy336yVIr8zUrj4MiGxA+rUTRV2tZpL2qcxxS8YhBqeKPSFfmUwIXLN2Pa1Cdkko/dRFTvOmH43QMV+Gj1GvfHvnxNAaE5/xs9H1To7FZFKFZFEcbmX9aDz/iqqsANDgMsa6iofeuZ8+0=
-  app: 
+    secure: YpdkPHaV/LMqv2NlyBt7l8BB5EKkjCrDYEmfnDa5drPgvRTi2fG/XwTzHrXgS1gfbXYcSUCx5i9Yg6rE1yShTac+xWAhoIldu4SeKkcCJuFNPl86U/QZA07U5cj+C2najIimRyMAXW6TwvQ4WbA2RDFtOSKWY87No/CmAb/iSgGq9R6KNhlOuBfhsHfZDAA4S45VVRZ8mCqxrsSgHlv2qsY07/q8Veo5p1kKP2cl8R1tleQOeAUPlY0Zn12h65GYT1zGcTdlvzg2lyYerSIQYB99k6mVuAdMLElZP9GCcEqo3tDBKzDKejQp1mgHpUR3osLU0Vh0rSDoMlCzynnnsFkxc9RBGc/1Ny0rFcF5Ks4tt8rtHMjmETQzjscgtg5v8PdpoYtLeFdlp2CR9LeboFyUPAMwYJTn6YkhVYgIgdU2yi+WYUlQJFtByaQFHKOdhkWKHSGlzg9+jMtAETIceUe2mlaJc3KRnj93DbJfL3JN9Pps7Mn2WVB9p7DoF3CtQQ3qw3aTKfvMQv2CHXYwwChIgnkMbxpY4bCOWHoHLuoM2fSb5pdM26yvR24A5N+6dHqWQRT8uXrbopOn/1bFPIAi3kVVKqPL3DEmr+08yrNiifl25Gf32qUUNtFXHG8zroJ5hq2E8OdVJpJPhLO7Y6Std3vxpI8567raNwuO4MM=
+  app:
     master: leds-zeppellin-api
     develop: leds-zeppellin-api-dev
   on:
