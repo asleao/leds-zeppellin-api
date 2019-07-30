@@ -13,6 +13,7 @@ class Tool(models.Model):
 class ToolCredential(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     tool = models.ForeignKey(Tool, on_delete=models.CASCADE)
+    username = models.CharField(max_length=150, blank=True, unique=True)
     token = models.CharField(max_length=150, blank=True, unique=True)  # Encryptar o token
 
     def __str__(self):
