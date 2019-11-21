@@ -2,9 +2,9 @@ dist: trusty
 sudo: false
 language: python
 python:
-  - '3.6'
+- '3.6'
 jdk:
-  - oraclejdk8
+- oraclejdk8
 addons:
   sonarcloud:
     organization: asleao-github
@@ -13,14 +13,15 @@ addons:
     github_token:
       secure: "$GITHUB_TOKEN"
 install:
-  - pip install -r requirements.txt
+- pip install -r requirements.txt
 script:
-  - pytest
-  - sonar-scanner -Dsonar.login=$SONAR_TOKEN
+- pytest
+- sonar-scanner -Dsonar.login=$SONAR_TOKEN
+
 deploy:
   provider: heroku
   api_key:
-    secure: YpdkPHaV/LMqv2NlyBt7l8BB5EKkjCrDYEmfnDa5drPgvRTi2fG/XwTzHrXgS1gfbXYcSUCx5i9Yg6rE1yShTac+xWAhoIldu4SeKkcCJuFNPl86U/QZA07U5cj+C2najIimRyMAXW6TwvQ4WbA2RDFtOSKWY87No/CmAb/iSgGq9R6KNhlOuBfhsHfZDAA4S45VVRZ8mCqxrsSgHlv2qsY07/q8Veo5p1kKP2cl8R1tleQOeAUPlY0Zn12h65GYT1zGcTdlvzg2lyYerSIQYB99k6mVuAdMLElZP9GCcEqo3tDBKzDKejQp1mgHpUR3osLU0Vh0rSDoMlCzynnnsFkxc9RBGc/1Ny0rFcF5Ks4tt8rtHMjmETQzjscgtg5v8PdpoYtLeFdlp2CR9LeboFyUPAMwYJTn6YkhVYgIgdU2yi+WYUlQJFtByaQFHKOdhkWKHSGlzg9+jMtAETIceUe2mlaJc3KRnj93DbJfL3JN9Pps7Mn2WVB9p7DoF3CtQQ3qw3aTKfvMQv2CHXYwwChIgnkMbxpY4bCOWHoHLuoM2fSb5pdM26yvR24A5N+6dHqWQRT8uXrbopOn/1bFPIAi3kVVKqPL3DEmr+08yrNiifl25Gf32qUUNtFXHG8zroJ5hq2E8OdVJpJPhLO7Y6Std3vxpI8567raNwuO4MM=
+    secure: SxNr5N2G84PrdpNhad4fDcMH7aixidURJoIWoZLQV9LX+B0xcnau28qEJtPs5PJr4nEc57sVIqEOjAzPgoIsvFG5L2Q0G0TbpVZLiaBSPEYzQ7BF6geHn+YN073X3ichCNjfhkbUpXS3EpjFdVAQiz7zwtUmWiTxDETnRvwQbEK69pp10xurVJNeab4UiKjkjYrWh6uJXe5Mf8R5kSYmJ6PFLuTpASop2QTb1zDfGAvay342ar6haH7kcXbMqk4cQNtpSKJnKRM9jfVquAch3eKhvJbdDAzRngMcdNSmFUsXuGyWBmHhl1wBHqOf8OwZ9jL+l49B8jcnHX32d5RO1i5V2JgtmV90LBh3CceZ4/aSECJrSCR2+ceqU4ezoFqPcImIQJz4jvc33iLFSS2DPJIvcLToN8WBjDZ17FIcBw9xtHZAcHQzNHc8pJ+Beol+gq6OCRuSoTg1FN7kn2OaWDnsjE0wH9J5bj47T+hdRSxDqLjVwIg54MjdEg0LozewbQWQfOn98g7Fs11M3VXhYXFPQQiuC6Hkhq54MTO+r5s8GAiv2UcGtA0l5Dlfi4gbgJCYKJVdrcdL/9HGgMKseHk0lQSSZLllGuD78SDUjiKg3eWU4x11YXbkTAQuXNxxRkNlTST19evH1JitgY4CPoflwN7+7OFazeRaAR2R7r0=
   app:
     master: leds-zeppellin-api
     develop: leds-zeppellin-api-dev
