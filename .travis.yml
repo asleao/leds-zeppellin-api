@@ -16,8 +16,6 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - python manage.py makemigrations
-  - python manage.py migrate
   - pytest
   - sonar-scanner -Dsonar.login=$SONAR_TOKEN
 
