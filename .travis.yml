@@ -2,9 +2,9 @@ dist: trusty
 sudo: false
 language: python
 python:
-- '3.6'
+  - '3.6'
 jdk:
-- oraclejdk8
+  - oraclejdk8
 addons:
   sonarcloud:
     organization: asleao-github
@@ -13,10 +13,10 @@ addons:
     github_token:
       secure: "$GITHUB_TOKEN"
 install:
-- pip install -r requirements.txt
+  - pip install -r requirements.txt
 script:
-- pytest
-- sonar-scanner -Dsonar.login=$SONAR_TOKEN
+#  - pytest
+  - sonar-scanner -Dsonar.login=$SONAR_TOKEN
 
 deploy:
   provider: heroku
